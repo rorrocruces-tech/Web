@@ -1,0 +1,62 @@
+table Calendario
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd-MM-yyyy
+		summarizeBy: none
+		sourceColumn: Fecha
+
+	column 'Año'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Año
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: Mes
+
+	column 'AñoMes'
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: AñoMes
+
+	column NombreMes
+		dataType: string
+		summarizeBy: none
+		sourceColumn: NombreMes
+		sortByColumn: 'AñoMes'
+
+	column NumDiaSemana
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: NumDiaSemana
+
+	column DiaSemana
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DiaSemana
+		sortByColumn: NumDiaSemana
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Inicio = Date.AddDays(Date.From(DateTime.LocalNow()), -Dias),
+				    Fechas = List.Dates(Inicio, Dias + 1, #duration(1, 0, 0, 0)),
+				    Tabla = Table.FromList(Fechas, Splitter.SplitByNothing(), type table [Fecha = date]),
+				    Anio = Table.AddColumn(Tabla, "Año", each Date.Year([Fecha]), Int64.Type),
+				    Mes = Table.AddColumn(Anio, "Mes", each Date.Month([Fecha]), Int64.Type),
+				    AnioMes = Table.AddColumn(Mes, "AñoMes", each Date.Year([Fecha]) * 100 + Date.Month([Fecha]), Int64.Type),
+				    NombreMes = Table.AddColumn(AnioMes, "NombreMes", each Date.ToText([Fecha], "MMM yyyy", "es-CL"), type text),
+				    NumDia = Table.AddColumn(NombreMes, "NumDiaSemana", each Date.DayOfWeek([Fecha], Day.Monday) + 1, Int64.Type),
+				    DiaSemana = Table.AddColumn(NumDia, "DiaSemana", each Date.ToText([Fecha], "dddd", "es-CL"), type text)
+				in
+				    DiaSemana

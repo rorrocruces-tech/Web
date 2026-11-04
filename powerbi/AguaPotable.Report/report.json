@@ -1,0 +1,499 @@
+{
+  "config": "{\"version\": \"5.43\", \"themeCollection\": {}, \"activeSectionIndex\": 0, \"defaultDrillFilterOtherVisuals\": true, \"linguisticSchemaSyncVersion\": 0}",
+  "layoutOptimization": 0,
+  "resourcePackages": [],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Resumen",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "ReportSection0",
+      "ordinal": 0,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 10,
+          "z": 1,
+          "width": 700,
+          "height": 50,
+          "config": "{\"name\": \"v001\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 1, \"width\": 700, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"textbox\", \"drillFilterOtherVisuals\": true, \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Sistema de Agua Potable · Resumen\", \"textStyle\": {\"fontWeight\": \"bold\", \"fontSize\": \"20pt\"}}]}]}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 960,
+          "y": 5,
+          "z": 2,
+          "width": 300,
+          "height": 80,
+          "config": "{\"name\": \"v002\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 960, \"y\": 5, \"z\": 2, \"width\": 300, \"height\": 80}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Periodo'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Between'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 100,
+          "z": 3,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v003\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 100, \"z\": 3, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Volumen producido (m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Volumen producido (m³)\"}, \"Name\": \"Valores.Volumen producido (m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Volumen producido (m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 228,
+          "y": 100,
+          "z": 4,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v004\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 228, \"y\": 100, \"z\": 4, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Volumen entregado a red (m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Volumen entregado a red (m³)\"}, \"Name\": \"Valores.Volumen entregado a red (m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Volumen entregado a red (m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 437,
+          "y": 100,
+          "z": 5,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v005\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 437, \"y\": 100, \"z\": 5, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Energía (kWh)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Energía (kWh)\"}, \"Name\": \"Valores.Energía (kWh)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Energía (kWh)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 100,
+          "z": 6,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v006\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 100, \"z\": 6, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Indicador energético (kWh/m³)\"}, \"Name\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Indicador energético (kWh/m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 853,
+          "y": 100,
+          "z": 7,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v007\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 853, \"y\": 100, \"z\": 7, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% cumplimiento cloro\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% cumplimiento cloro\"}, \"Name\": \"Valores.% cumplimiento cloro\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento cloro'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 1062,
+          "y": 100,
+          "z": 8,
+          "width": 198,
+          "height": 110,
+          "config": "{\"name\": \"v008\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1062, \"y\": 100, \"z\": 8, \"width\": 198, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% cumplimiento turbiedad\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% cumplimiento turbiedad\"}, \"Name\": \"Valores.% cumplimiento turbiedad\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento turbiedad'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 225,
+          "z": 9,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v009\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 225, \"z\": 9, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Volumen producido (m³)\"}, {\"queryRef\": \"Valores.Volumen entregado a red (m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Volumen producido (m³)\"}, \"Name\": \"Valores.Volumen producido (m³)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Volumen entregado a red (m³)\"}, \"Name\": \"Valores.Volumen entregado a red (m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Volumen diario (m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 225,
+          "z": 10,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v010\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 225, \"z\": 10, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Indicador energético (kWh/m³)\"}, \"Name\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Indicador energético diario (kWh/m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 475,
+          "z": 11,
+          "width": 615,
+          "height": 235,
+          "config": "{\"name\": \"v011\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 475, \"z\": 11, \"width\": 615, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Cloro libre mínimo (mg/l)\"}, {\"queryRef\": \"Valores.Cloro libre promedio (mg/l)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Cloro libre mínimo (mg/l)\"}, \"Name\": \"Valores.Cloro libre mínimo (mg/l)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Cloro libre promedio (mg/l)\"}, \"Name\": \"Valores.Cloro libre promedio (mg/l)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cloro libre residual diario (mg/l)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 475,
+          "z": 12,
+          "width": 615,
+          "height": 235,
+          "config": "{\"name\": \"v012\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 475, \"z\": 12, \"width\": 615, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Tags.Area\"}, {\"queryRef\": \"Tags.Nombre\"}, {\"queryRef\": \"Valores.Horas en alarma\"}, {\"queryRef\": \"Valores.Horas en alarma crítica\"}, {\"queryRef\": \"Valores.% cumplimiento\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Tags\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Area\"}, \"Name\": \"Tags.Area\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Horas en alarma\"}, \"Name\": \"Valores.Horas en alarma\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Horas en alarma crítica\"}, \"Name\": \"Valores.Horas en alarma crítica\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% cumplimiento\"}, \"Name\": \"Valores.% cumplimiento\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Alarmas por tag'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Tendencias",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "ReportSection1",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 10,
+          "z": 13,
+          "width": 500,
+          "height": 50,
+          "config": "{\"name\": \"v013\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 13, \"width\": 500, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"textbox\", \"drillFilterOtherVisuals\": true, \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Tendencias por tag\", \"textStyle\": {\"fontWeight\": \"bold\", \"fontSize\": \"20pt\"}}]}]}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "z": 14,
+          "width": 260,
+          "height": 300,
+          "config": "{\"name\": \"v014\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 70, \"z\": 14, \"width\": 260, \"height\": 300}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Tags.Area\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Tags\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Area\"}, \"Name\": \"Tags.Area\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Área'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 380,
+          "z": 15,
+          "width": 260,
+          "height": 330,
+          "config": "{\"name\": \"v015\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 380, \"z\": 15, \"width\": 260, \"height\": 330}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Tags.Nombre\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Tags\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Tag'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 960,
+          "y": 5,
+          "z": 16,
+          "width": 300,
+          "height": 80,
+          "config": "{\"name\": \"v016\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 960, \"y\": 5, \"z\": 16, \"width\": 300, \"height\": 80}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Periodo'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Between'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 290,
+          "y": 90,
+          "z": 17,
+          "width": 970,
+          "height": 330,
+          "config": "{\"name\": \"v017\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 290, \"y\": 90, \"z\": 17, \"width\": 970, \"height\": 330}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Valores.FechaHora\"}], \"Y\": [{\"queryRef\": \"Valores.Valor promedio\"}], \"Series\": [{\"queryRef\": \"Tags.Nombre\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"Tags\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"FechaHora\"}, \"Name\": \"Valores.FechaHora\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Valor promedio\"}, \"Name\": \"Valores.Valor promedio\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Tendencia (seleccione tags a la izquierda)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 290,
+          "y": 430,
+          "z": 18,
+          "width": 970,
+          "height": 280,
+          "config": "{\"name\": \"v018\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 290, \"y\": 430, \"z\": 18, \"width\": 970, \"height\": 280}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Tags.Area\"}, {\"queryRef\": \"Tags.Nombre\"}, {\"queryRef\": \"Tags.Unidad\"}, {\"queryRef\": \"Valores.Valor mínimo\"}, {\"queryRef\": \"Valores.Valor promedio\"}, {\"queryRef\": \"Valores.Valor máximo\"}, {\"queryRef\": \"Valores.Último valor\"}, {\"queryRef\": \"Valores.% tiempo en alarma\"}, {\"queryRef\": \"Valores.% cumplimiento\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Tags\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Area\"}, \"Name\": \"Tags.Area\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Unidad\"}, \"Name\": \"Tags.Unidad\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Valor mínimo\"}, \"Name\": \"Valores.Valor mínimo\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Valor promedio\"}, \"Name\": \"Valores.Valor promedio\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Valor máximo\"}, \"Name\": \"Valores.Valor máximo\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Último valor\"}, \"Name\": \"Valores.Último valor\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% tiempo en alarma\"}, \"Name\": \"Valores.% tiempo en alarma\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% cumplimiento\"}, \"Name\": \"Valores.% cumplimiento\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Estadísticas del periodo'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Calidad del agua",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "ReportSection2",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 10,
+          "z": 19,
+          "width": 700,
+          "height": 50,
+          "config": "{\"name\": \"v019\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 19, \"width\": 700, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"textbox\", \"drillFilterOtherVisuals\": true, \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Calidad del agua · NCh409/1\", \"textStyle\": {\"fontWeight\": \"bold\", \"fontSize\": \"20pt\"}}]}]}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 960,
+          "y": 5,
+          "z": 20,
+          "width": 300,
+          "height": 80,
+          "config": "{\"name\": \"v020\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 960, \"y\": 5, \"z\": 20, \"width\": 300, \"height\": 80}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Periodo'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Between'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 100,
+          "z": 21,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v021\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 100, \"z\": 21, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% cumplimiento cloro\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% cumplimiento cloro\"}, \"Name\": \"Valores.% cumplimiento cloro\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento cloro'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 270,
+          "y": 100,
+          "z": 22,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v022\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 270, \"y\": 100, \"z\": 22, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Cloro libre mínimo (mg/l)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Cloro libre mínimo (mg/l)\"}, \"Name\": \"Valores.Cloro libre mínimo (mg/l)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cloro libre mínimo (mg/l)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 520,
+          "y": 100,
+          "z": 23,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v023\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 520, \"y\": 100, \"z\": 23, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% cumplimiento turbiedad\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% cumplimiento turbiedad\"}, \"Name\": \"Valores.% cumplimiento turbiedad\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento turbiedad'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 770,
+          "y": 100,
+          "z": 24,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v024\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 770, \"y\": 100, \"z\": 24, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Turbiedad máxima (NTU)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Turbiedad máxima (NTU)\"}, \"Name\": \"Valores.Turbiedad máxima (NTU)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Turbiedad máxima (NTU)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 1020,
+          "y": 100,
+          "z": 25,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v025\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1020, \"y\": 100, \"z\": 25, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% cumplimiento pH\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% cumplimiento pH\"}, \"Name\": \"Valores.% cumplimiento pH\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento pH'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 225,
+          "z": 26,
+          "width": 1240,
+          "height": 240,
+          "config": "{\"name\": \"v026\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 225, \"z\": 26, \"width\": 1240, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Cloro libre promedio (mg/l)\"}, {\"queryRef\": \"Valores.Cloro libre mínimo (mg/l)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Cloro libre promedio (mg/l)\"}, \"Name\": \"Valores.Cloro libre promedio (mg/l)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Cloro libre mínimo (mg/l)\"}, \"Name\": \"Valores.Cloro libre mínimo (mg/l)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Cloro libre residual por día (norma 0,2 – 2,0 mg/l)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 475,
+          "z": 27,
+          "width": 615,
+          "height": 235,
+          "config": "{\"name\": \"v027\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 475, \"z\": 27, \"width\": 615, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.% cumplimiento cloro\"}, {\"queryRef\": \"Valores.% cumplimiento turbiedad\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% cumplimiento cloro\"}, \"Name\": \"Valores.% cumplimiento cloro\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% cumplimiento turbiedad\"}, \"Name\": \"Valores.% cumplimiento turbiedad\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% cumplimiento diario'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 475,
+          "z": 28,
+          "width": 615,
+          "height": 235,
+          "config": "{\"name\": \"v028\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 475, \"z\": 28, \"width\": 615, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Turbiedad máxima (NTU)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Turbiedad máxima (NTU)\"}, \"Name\": \"Valores.Turbiedad máxima (NTU)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Turbiedad máxima diaria agua tratada (NTU)'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Producción y energía",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "ReportSection3",
+      "ordinal": 3,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 10,
+          "z": 29,
+          "width": 700,
+          "height": 50,
+          "config": "{\"name\": \"v029\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 29, \"width\": 700, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"textbox\", \"drillFilterOtherVisuals\": true, \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Producción, entrega y energía\", \"textStyle\": {\"fontWeight\": \"bold\", \"fontSize\": \"20pt\"}}]}]}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 960,
+          "y": 5,
+          "z": 30,
+          "width": 300,
+          "height": 80,
+          "config": "{\"name\": \"v030\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 960, \"y\": 5, \"z\": 30, \"width\": 300, \"height\": 80}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Periodo'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Between'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 100,
+          "z": 31,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v031\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 100, \"z\": 31, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Volumen producido (m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Volumen producido (m³)\"}, \"Name\": \"Valores.Volumen producido (m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Volumen producido (m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 270,
+          "y": 100,
+          "z": 32,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v032\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 270, \"y\": 100, \"z\": 32, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Diferencia producción - entrega (m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Diferencia producción - entrega (m³)\"}, \"Name\": \"Valores.Diferencia producción - entrega (m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Diferencia producción - entrega (m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 520,
+          "y": 100,
+          "z": 33,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v033\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 520, \"y\": 100, \"z\": 33, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% diferencia producción - entrega\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% diferencia producción - entrega\"}, \"Name\": \"Valores.% diferencia producción - entrega\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% diferencia producción - entrega'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 770,
+          "y": 100,
+          "z": 34,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v034\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 770, \"y\": 100, \"z\": 34, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Caudal mínimo nocturno (l/s)\"}, \"Name\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Caudal mínimo nocturno (l/s)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 1020,
+          "y": 100,
+          "z": 35,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v035\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1020, \"y\": 100, \"z\": 35, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Indicador energético (kWh/m³)\"}, \"Name\": \"Valores.Indicador energético (kWh/m³)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Indicador energético (kWh/m³)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 225,
+          "z": 36,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v036\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 225, \"z\": 36, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Caudal mínimo nocturno (l/s)\"}, \"Name\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Caudal mínimo nocturno 02–05 h (fugas)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 225,
+          "z": 37,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v037\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 225, \"z\": 37, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Energía (kWh)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Energía (kWh)\"}, \"Name\": \"Valores.Energía (kWh)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Energía diaria (kWh)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 475,
+          "z": 38,
+          "width": 1240,
+          "height": 235,
+          "config": "{\"name\": \"v038\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 475, \"z\": 38, \"width\": 1240, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}, {\"queryRef\": \"Valores.Volumen producido (m³)\"}, {\"queryRef\": \"Valores.Volumen entregado a red (m³)\"}, {\"queryRef\": \"Valores.% diferencia producción - entrega\"}, {\"queryRef\": \"Valores.Energía (kWh)\"}, {\"queryRef\": \"Valores.Indicador energético (kWh/m³)\"}, {\"queryRef\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Volumen producido (m³)\"}, \"Name\": \"Valores.Volumen producido (m³)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Volumen entregado a red (m³)\"}, \"Name\": \"Valores.Volumen entregado a red (m³)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"% diferencia producción - entrega\"}, \"Name\": \"Valores.% diferencia producción - entrega\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Energía (kWh)\"}, \"Name\": \"Valores.Energía (kWh)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Indicador energético (kWh/m³)\"}, \"Name\": \"Valores.Indicador energético (kWh/m³)\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Caudal mínimo nocturno (l/s)\"}, \"Name\": \"Valores.Caudal mínimo nocturno (l/s)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Detalle diario'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ],
+      "width": 1280.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Bombas y estanques",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.0,
+      "name": "ReportSection4",
+      "ordinal": 4,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 10,
+          "z": 39,
+          "width": 700,
+          "height": 50,
+          "config": "{\"name\": \"v039\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 39, \"width\": 700, \"height\": 50}}], \"singleVisual\": {\"visualType\": \"textbox\", \"drillFilterOtherVisuals\": true, \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Bombas, estanques y presiones\", \"textStyle\": {\"fontWeight\": \"bold\", \"fontSize\": \"20pt\"}}]}]}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 960,
+          "y": 5,
+          "z": 40,
+          "width": 300,
+          "height": 80,
+          "config": "{\"name\": \"v040\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 960, \"y\": 5, \"z\": 40, \"width\": 300, \"height\": 80}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Calendario.Fecha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Periodo'\"}}}}}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Between'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 100,
+          "z": 41,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v041\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 100, \"z\": 41, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Horas de marcha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Horas de marcha\"}, \"Name\": \"Valores.Horas de marcha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Horas de marcha'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 270,
+          "y": 100,
+          "z": 42,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v042\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 270, \"y\": 100, \"z\": 42, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.% tiempo en marcha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"% tiempo en marcha\"}, \"Name\": \"Valores.% tiempo en marcha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'% tiempo en marcha'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 520,
+          "y": 100,
+          "z": 43,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v043\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 520, \"y\": 100, \"z\": 43, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Nivel estanque promedio (%)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Nivel estanque promedio (%)\"}, \"Name\": \"Valores.Nivel estanque promedio (%)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Nivel estanque promedio (%)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 770,
+          "y": 100,
+          "z": 44,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v044\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 770, \"y\": 100, \"z\": 44, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Nivel estanque mínimo (%)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Nivel estanque mínimo (%)\"}, \"Name\": \"Valores.Nivel estanque mínimo (%)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Nivel estanque mínimo (%)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 1020,
+          "y": 100,
+          "z": 45,
+          "width": 240,
+          "height": 110,
+          "config": "{\"name\": \"v045\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1020, \"y\": 100, \"z\": 45, \"width\": 240, \"height\": 110}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"Valores.Presión mínima (mca)\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"v0\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v0\"}}, \"Property\": \"Presión mínima (mca)\"}, \"Name\": \"Valores.Presión mínima (mca)\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Presión mínima (mca)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 225,
+          "z": 46,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v046\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 225, \"z\": 46, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Tags.Nombre\"}], \"Y\": [{\"queryRef\": \"Valores.Horas de marcha\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Tags\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Horas de marcha\"}, \"Name\": \"Valores.Horas de marcha\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Horas de marcha por bomba'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 645,
+          "y": 225,
+          "z": 47,
+          "width": 615,
+          "height": 240,
+          "config": "{\"name\": \"v047\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 645, \"y\": 225, \"z\": 47, \"width\": 615, \"height\": 240}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Nivel estanque mínimo (%)\"}], \"Series\": [{\"queryRef\": \"Tags.Nombre\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}, {\"Name\": \"t2\", \"Entity\": \"Tags\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Nivel estanque mínimo (%)\"}, \"Name\": \"Valores.Nivel estanque mínimo (%)\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t2\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Nivel mínimo diario por estanque (%)'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 475,
+          "z": 48,
+          "width": 1240,
+          "height": 235,
+          "config": "{\"name\": \"v048\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 475, \"z\": 48, \"width\": 1240, \"height\": 235}}], \"singleVisual\": {\"visualType\": \"lineChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Calendario.Fecha\"}], \"Y\": [{\"queryRef\": \"Valores.Presión mínima (mca)\"}], \"Series\": [{\"queryRef\": \"Tags.Nombre\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c0\", \"Entity\": \"Calendario\", \"Type\": 0}, {\"Name\": \"v1\", \"Entity\": \"Valores\", \"Type\": 0}, {\"Name\": \"t2\", \"Entity\": \"Tags\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c0\"}}, \"Property\": \"Fecha\"}, \"Name\": \"Calendario.Fecha\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"v1\"}}, \"Property\": \"Presión mínima (mca)\"}, \"Name\": \"Valores.Presión mínima (mca)\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t2\"}}, \"Property\": \"Nombre\"}, \"Name\": \"Tags.Nombre\"}]}, \"drillFilterOtherVisuals\": true, \"vcObjects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Presión mínima diaria por sector (mca)'\"}}}}}]}}}",
+          "filters": "[]"
+        }
+      ],
+      "width": 1280.0
+    }
+  ]
+}

@@ -46,7 +46,7 @@ export class Simulator {
   async history(tag, range) {
     const end = Date.now();
     const pts = [];
-    for (let t = end - range.ms; t <= end; t += range.stepMs) pts.push({ t, v: this.valueAt(tag, t) });
+    for (let t = range.startMs ?? end - range.ms; t <= end; t += range.stepMs) pts.push({ t, v: this.valueAt(tag, t) });
     return pts;
   }
 }

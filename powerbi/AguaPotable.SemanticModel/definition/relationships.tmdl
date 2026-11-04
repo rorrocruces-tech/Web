@@ -1,0 +1,7 @@
+relationship Valores_Tags
+	fromColumn: Valores.TagId
+	toColumn: Tags.TagId
+
+relationship Valores_Calendario
+	fromColumn: Valores.Fecha
+	toColumn: Calendario.Fecha

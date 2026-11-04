@@ -34,6 +34,13 @@ Puede leer los datos de dos formas:
   - Indicadores de conexión, datos antiguos, calidad mala ("I/O Timeout", "Comm Fail"…).
   - Tema claro/oscuro automático y diseño responsivo (celular / tablet / pantalla de sala de control).
 
+## Power BI
+
+El servidor también entrega los datos históricos a **Power BI** (`/api/powerbi/tags.csv` y
+`/api/powerbi/valores.csv`). En [`powerbi/`](powerbi/README.md) hay un proyecto Power BI listo para abrir
+(`AguaPotable.pbip`) con 5 páginas y 29 medidas (cumplimiento NCh409, m³ producidos, kWh/m³, horas de marcha,
+caudal mínimo nocturno…) y la guía paso a paso.
+
 ## Puesta en marcha con PI ProcessBook (sin PI Web API)
 
 PI ProcessBook es sólo el cliente: los datos están en un **servidor PI (PI Data Archive)** al que
@@ -172,6 +179,8 @@ server/server.js        Servidor HTTP, polling, SSE y API
 server/pi-client.js     Cliente PI Web API
 server/pisdk-client.js  Cliente PI SDK (lanza el puente PowerShell)
 server/pisdk-bridge.ps1 Puente PowerShell ↔ PI SDK (COM) de ProcessBook
+server/powerbi.js       Exportación CSV para Power BI
+powerbi/                Proyecto Power BI (PBIP) y guía paso a paso
 iniciar.bat             Inicio rápido en Windows
 probar-pisdk.bat        Prueba de lectura de tags con PI SDK
 server/simulator.js     Datos simulados para desarrollo

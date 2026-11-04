@@ -1,0 +1,8 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CL
+
+ref table Tags
+ref table Valores
+ref table Calendario

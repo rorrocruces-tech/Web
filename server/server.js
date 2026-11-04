@@ -11,6 +11,7 @@ import { PiClient } from './pi-client.js';
 import { PiSdkClient } from './pisdk-client.js';
 import { Simulator } from './simulator.js';
 import { evaluate } from './alarms.js';
+import { createPowerBiHandler } from './powerbi.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
@@ -197,6 +198,9 @@ const server = http.createServer((req, res) => {
       return handleStream(req, res);
     case '/api/history':
       return handleHistory(url, res);
+    case '/api/powerbi/tags.csv':
+    case '/api/powerbi/valores.csv':
+      return powerBi(url, res);
     case '/api/health':
       return sendJson(res, state.ok ? 200 : 503, {
         ok: state.ok, source: state.source, lastUpdate: state.ts, error: state.error, clients: clients.size,
@@ -205,6 +209,8 @@ const server = http.createServer((req, res) => {
       return serveStatic(url, res);
   }
 });
+
+const powerBi = createPowerBiHandler({ config, tags, source, sendJson });
 
 // Comentario SSE periódico para que proxies/firewalls no corten la conexión.
 setInterval(() => clients.forEach((res) => res.write(': ping\n\n')), 15_000).unref();

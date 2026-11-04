@@ -75,15 +75,15 @@ export class PiSdkClient {
     this.pending.clear();
   }
 
-  call(op, payload) {
+  call(op, payload, timeoutMs = this.timeoutMs) {
     if (!this.child) this.start(); // arranca (o re-arranca tras una caída) bajo demanda
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         this.pending.delete(id);
-        reject(new Error(`Timeout (${this.timeoutMs} ms) esperando a PI SDK`));
+        reject(new Error(`Timeout (${timeoutMs} ms) esperando a PI SDK`));
         this.child?.kill(); // el puente quedó colgado: se reinicia en la próxima llamada
-      }, this.timeoutMs);
+      }, timeoutMs);
       this.pending.set(id, { resolve, reject, timer });
       this.child.stdin.write(`${JSON.stringify({ id, op, ...payload })}\n`);
     });
@@ -116,7 +116,7 @@ export class PiSdkClient {
       start: range.start,
       interval: range.interval,
       count: Math.round(range.ms / range.stepMs) + 1,
-    });
+    }, Math.max(this.timeoutMs, 180_000)); // rangos largos (exportación Power BI) tardan más
     return [].concat(res.points ?? []);
   }
 }

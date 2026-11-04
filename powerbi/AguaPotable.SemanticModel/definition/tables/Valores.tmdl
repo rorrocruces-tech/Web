@@ -1,0 +1,228 @@
+table Valores
+
+	/// Promedio de los valores del tag/periodo filtrado.
+	measure 'Valor promedio' = AVERAGE ( Valores[Valor] )
+		formatString: #,0.00
+		displayFolder: 1 Básicas
+
+	measure 'Valor mínimo' = MIN ( Valores[Valor] )
+		formatString: #,0.00
+		displayFolder: 1 Básicas
+
+	measure 'Valor máximo' = MAX ( Valores[Valor] )
+		formatString: #,0.00
+		displayFolder: 1 Básicas
+
+	/// Valor en la última fecha/hora disponible del filtro.
+	measure 'Último valor' =
+			VAR ultimo = CALCULATE ( MAX ( Valores[FechaHora] ), NOT ISBLANK ( Valores[Valor] ) )
+			RETURN CALCULATE ( AVERAGE ( Valores[Valor] ), Valores[FechaHora] = ultimo )
+		formatString: #,0.00
+		displayFolder: 1 Básicas
+
+	measure Muestras = COUNTROWS ( Valores )
+		formatString: #,0
+		displayFolder: 1 Básicas
+
+	/// Horas con el valor fuera de algún límite (L, H, LL, HH o falla).
+	measure 'Horas en alarma' = CALCULATE ( SUM ( Valores[IntervaloHoras] ), NOT ISBLANK ( Valores[Alarma] ) )
+		formatString: #,0.0
+		displayFolder: 2 Alarmas
+
+	/// Horas fuera de los límites críticos LL/HH o con falla.
+	measure 'Horas en alarma crítica' = CALCULATE ( SUM ( Valores[IntervaloHoras] ), Valores[Alarma] IN { "LL", "HH", "DIG" } )
+		formatString: #,0.0
+		displayFolder: 2 Alarmas
+
+	measure '% tiempo en alarma' = DIVIDE ( [Horas en alarma], SUM ( Valores[IntervaloHoras] ) )
+		formatString: 0.0%
+		displayFolder: 2 Alarmas
+
+	/// % del tiempo dentro de los límites críticos LL/HH.
+	measure '% cumplimiento' = 1 - DIVIDE ( [Horas en alarma crítica], CALCULATE ( SUM ( Valores[IntervaloHoras] ), NOT ISBLANK ( Valores[Valor] ) ) )
+		formatString: 0.0%
+		displayFolder: 2 Alarmas
+
+	measure 'Cloro libre promedio (mg/l)' = CALCULATE ( AVERAGE ( Valores[Valor] ), Tags[Kpi] = "cloro" )
+		formatString: 0.00
+		displayFolder: 3 Calidad agua (NCh409)
+
+	measure 'Cloro libre mínimo (mg/l)' = CALCULATE ( MIN ( Valores[Valor] ), Tags[Kpi] = "cloro" )
+		formatString: 0.00
+		displayFolder: 3 Calidad agua (NCh409)
+
+	/// % del tiempo con cloro libre entre los límites LL y HH del tag (NCh409/1: 0,2 – 2,0 mg/l).
+	measure '% cumplimiento cloro' = CALCULATE ( [% cumplimiento], Tags[Kpi] = "cloro" )
+		formatString: 0.0%
+		displayFolder: 3 Calidad agua (NCh409)
+
+	measure 'Turbiedad máxima (NTU)' = CALCULATE ( MAX ( Valores[Valor] ), Tags[Kpi] = "turbiedad" )
+		formatString: 0.00
+		displayFolder: 3 Calidad agua (NCh409)
+
+	/// % del tiempo con turbiedad bajo el límite HH del tag (NCh409/1: 2 NTU).
+	measure '% cumplimiento turbiedad' = CALCULATE ( [% cumplimiento], Tags[Kpi] = "turbiedad" )
+		formatString: 0.0%
+		displayFolder: 3 Calidad agua (NCh409)
+
+	measure '% cumplimiento pH' = CALCULATE ( [% cumplimiento], Tags[Kpi] = "ph" )
+		formatString: 0.0%
+		displayFolder: 3 Calidad agua (NCh409)
+
+	/// Integra el caudal (l/s) de los tags KPI 'produccion': l/s × horas × 3,6 = m³.
+	measure 'Volumen producido (m³)' = CALCULATE ( SUMX ( Valores, Valores[Valor] * Valores[IntervaloHoras] * 3.6 ), Tags[Kpi] = "produccion" )
+		formatString: #,0
+		displayFolder: 4 Producción y energía
+
+	measure 'Volumen entregado a red (m³)' = CALCULATE ( SUMX ( Valores, Valores[Valor] * Valores[IntervaloHoras] * 3.6 ), Tags[Kpi] = "entrega_red" )
+		formatString: #,0
+		displayFolder: 4 Producción y energía
+
+	/// Aproximación de pérdidas/uso interno entre producción y salida a red.
+	measure 'Diferencia producción - entrega (m³)' = [Volumen producido (m³)] - [Volumen entregado a red (m³)]
+		formatString: #,0
+		displayFolder: 4 Producción y energía
+
+	measure '% diferencia producción - entrega' = DIVIDE ( [Diferencia producción - entrega (m³)], [Volumen producido (m³)] )
+		formatString: 0.0%
+		displayFolder: 4 Producción y energía
+
+	/// Suma de caudales de producción, promediada en el tiempo.
+	measure 'Caudal producido promedio (l/s)' = CALCULATE ( DIVIDE ( SUM ( Valores[Valor] ), DISTINCTCOUNT ( Valores[FechaHora] ) ), Tags[Kpi] = "produccion" )
+		formatString: #,0.0
+		displayFolder: 4 Producción y energía
+
+	/// Integra la potencia (kW) de los tags KPI 'potencia'.
+	measure 'Energía (kWh)' = CALCULATE ( SUMX ( Valores, Valores[Valor] * Valores[IntervaloHoras] ), Tags[Kpi] = "potencia" )
+		formatString: #,0
+		displayFolder: 4 Producción y energía
+
+	measure 'Indicador energético (kWh/m³)' = DIVIDE ( [Energía (kWh)], [Volumen producido (m³)] )
+		formatString: 0.000
+		displayFolder: 4 Producción y energía
+
+	/// Menor promedio diario de caudal a red entre 02:00 y 05:00 (indicador de fugas).
+	measure 'Caudal mínimo nocturno (l/s)' =
+			MINX (
+			    VALUES ( Calendario[Fecha] ),
+			    CALCULATE ( AVERAGE ( Valores[Valor] ), Tags[Kpi] = "entrega_red", Valores[Hora] >= 2, Valores[Hora] < 5 )
+			)
+		formatString: #,0.0
+		displayFolder: 4 Producción y energía
+
+	measure 'Horas de marcha' = CALCULATE ( SUMX ( Valores, Valores[Marcha] * Valores[IntervaloHoras] ), Tags[Kpi] = "bomba" )
+		formatString: #,0.0
+		displayFolder: 5 Bombas y estanques
+
+	measure '% tiempo en marcha' = DIVIDE ( [Horas de marcha], CALCULATE ( SUM ( Valores[IntervaloHoras] ), Tags[Kpi] = "bomba" ) )
+		formatString: 0.0%
+		displayFolder: 5 Bombas y estanques
+
+	/// Nivel como % de la escala Min–Max del tag.
+	measure 'Nivel estanque promedio (%)' =
+			CALCULATE (
+			    AVERAGEX ( Valores, DIVIDE ( Valores[Valor] - RELATED ( Tags[Min] ), RELATED ( Tags[Max] ) - RELATED ( Tags[Min] ) ) ),
+			    Tags[Kpi] = "nivel_estanque"
+			)
+		formatString: 0.0%
+		displayFolder: 5 Bombas y estanques
+
+	measure 'Nivel estanque mínimo (%)' =
+			CALCULATE (
+			    MINX ( Valores, DIVIDE ( Valores[Valor] - RELATED ( Tags[Min] ), RELATED ( Tags[Max] ) - RELATED ( Tags[Min] ) ) ),
+			    Tags[Kpi] = "nivel_estanque"
+			)
+		formatString: 0.0%
+		displayFolder: 5 Bombas y estanques
+
+	measure 'Presión mínima (mca)' = CALCULATE ( MIN ( Valores[Valor] ), Tags[Kpi] = "presion" )
+		formatString: #,0.0
+		displayFolder: 5 Bombas y estanques
+
+	measure 'Presión promedio (mca)' = CALCULATE ( AVERAGE ( Valores[Valor] ), Tags[Kpi] = "presion" )
+		formatString: #,0.0
+		displayFolder: 5 Bombas y estanques
+
+	column FechaHora
+		dataType: dateTime
+		formatString: "dd-MM-yyyy HH:mm"
+		summarizeBy: none
+		sourceColumn: FechaHora
+
+	column TagId
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: TagId
+
+	column Valor
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: Valor
+
+	column Texto
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Texto
+
+	column Alarma
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Alarma
+
+	column Marcha
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Marcha
+
+	column IntervaloHoras
+		dataType: double
+		formatString: 0.####
+		isHidden
+		summarizeBy: none
+		sourceColumn: IntervaloHoras
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd-MM-yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: Fecha
+
+	column Hora
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Hora
+
+	partition Valores = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(
+				        Web.Contents(
+				            UrlServidor,
+				            [
+				                RelativePath = "api/powerbi/valores.csv",
+				                Query = [dias = Text.From(Dias), intervalo = Intervalo],
+				                Timeout = #duration(0, 0, 30, 0)
+				            ]
+				        ),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    VaciosANulos = Table.TransformColumns(Encabezados, {}, each if _ = "" then null else _),
+				    Tipos = Table.TransformColumnTypes(
+				        VaciosANulos,
+				        {
+				            {"FechaHora", type datetime}, {"TagId", type text}, {"Valor", type number},
+				            {"Texto", type text}, {"Alarma", type text}, {"Marcha", Int64.Type}, {"IntervaloHoras", type number}
+				        },
+				        "en-US"
+				    ),
+				    ConFecha = Table.AddColumn(Tipos, "Fecha", each DateTime.Date([FechaHora]), type date),
+				    ConHora = Table.AddColumn(ConFecha, "Hora", each Time.Hour([FechaHora]), Int64.Type)
+				in
+				    ConHora

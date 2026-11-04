@@ -9,6 +9,7 @@
       "tags": [
         {
           "id": "pozo1_caudal",
+          "kpi": "produccion",
           "name": "Caudal Pozo 1",
           "path": "\\\\PISRV01\\AP_CAP_P1_FIT101",
           "type": "analog",
@@ -21,6 +22,7 @@
         },
         {
           "id": "pozo1_nivel",
+          "kpi": "nivel_pozo",
           "name": "Nivel dinámico Pozo 1",
           "path": "\\\\PISRV01\\AP_CAP_P1_LIT101",
           "type": "analog",
@@ -33,6 +35,7 @@
         },
         {
           "id": "pozo1_bomba",
+          "kpi": "bomba",
           "name": "Bomba Pozo 1",
           "path": "\\\\PISRV01\\AP_CAP_P1_BOMBA_EST",
           "type": "digital",
@@ -42,6 +45,7 @@
         },
         {
           "id": "pozo2_caudal",
+          "kpi": "produccion",
           "name": "Caudal Pozo 2",
           "path": "\\\\PISRV01\\AP_CAP_P2_FIT201",
           "type": "analog",
@@ -54,6 +58,7 @@
         },
         {
           "id": "pozo2_bomba",
+          "kpi": "bomba",
           "name": "Bomba Pozo 2",
           "path": "\\\\PISRV01\\AP_CAP_P2_BOMBA_EST",
           "type": "digital",
@@ -69,6 +74,7 @@
       "tags": [
         {
           "id": "planta_caudal_in",
+          "kpi": "entrada_planta",
           "name": "Caudal entrada planta",
           "path": "\\\\PISRV01\\AP_PTA_FIT301",
           "type": "analog",
@@ -81,6 +87,7 @@
         },
         {
           "id": "planta_turb_cruda",
+          "kpi": "turbiedad_cruda",
           "name": "Turbiedad agua cruda",
           "path": "\\\\PISRV01\\AP_PTA_AIT301_TURB",
           "type": "analog",
@@ -93,6 +100,7 @@
         },
         {
           "id": "planta_turb_tratada",
+          "kpi": "turbiedad",
           "name": "Turbiedad agua tratada",
           "path": "\\\\PISRV01\\AP_PTA_AIT302_TURB",
           "type": "analog",
@@ -106,6 +114,7 @@
         },
         {
           "id": "planta_cloro",
+          "kpi": "cloro",
           "name": "Cloro libre residual",
           "path": "\\\\PISRV01\\AP_PTA_AIT303_CL2",
           "type": "analog",
@@ -119,6 +128,7 @@
         },
         {
           "id": "planta_ph",
+          "kpi": "ph",
           "name": "pH agua tratada",
           "path": "\\\\PISRV01\\AP_PTA_AIT304_PH",
           "type": "analog",
@@ -137,6 +147,7 @@
       "tags": [
         {
           "id": "est1_nivel",
+          "kpi": "nivel_estanque",
           "name": "Nivel Estanque 1 (2.000 m³)",
           "path": "\\\\PISRV01\\AP_EST1_LIT401",
           "type": "level",
@@ -149,6 +160,7 @@
         },
         {
           "id": "est2_nivel",
+          "kpi": "nivel_estanque",
           "name": "Nivel Estanque 2 (1.000 m³)",
           "path": "\\\\PISRV01\\AP_EST2_LIT501",
           "type": "level",
@@ -167,6 +179,7 @@
       "tags": [
         {
           "id": "red_caudal",
+          "kpi": "entrega_red",
           "name": "Caudal salida a red",
           "path": "\\\\PISRV01\\AP_RED_FIT601",
           "type": "analog",
@@ -179,6 +192,7 @@
         },
         {
           "id": "red_presion_alta",
+          "kpi": "presion",
           "name": "Presión sector alto",
           "path": "\\\\PISRV01\\AP_RED_PIT601",
           "type": "analog",
@@ -191,6 +205,7 @@
         },
         {
           "id": "red_presion_baja",
+          "kpi": "presion",
           "name": "Presión sector bajo",
           "path": "\\\\PISRV01\\AP_RED_PIT602",
           "type": "analog",
@@ -203,6 +218,7 @@
         },
         {
           "id": "red_totalizador",
+          "kpi": "totalizador",
           "name": "Volumen entregado (totalizador)",
           "path": "\\\\PISRV01\\AP_RED_FQI601",
           "type": "analog",
@@ -218,6 +234,7 @@
       "tags": [
         {
           "id": "energia_potencia",
+          "kpi": "potencia",
           "name": "Potencia total",
           "path": "\\\\PISRV01\\AP_ENE_JIT701",
           "type": "analog",

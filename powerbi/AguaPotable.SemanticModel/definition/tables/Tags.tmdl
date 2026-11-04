@@ -1,0 +1,103 @@
+table Tags
+
+	column TagId
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TagId
+
+	column Nombre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Nombre
+
+	column Area
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Area
+		sortByColumn: OrdenArea
+
+	column OrdenArea
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: OrdenArea
+
+	column Tipo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Tipo
+
+	column Kpi
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Kpi
+
+	column Unidad
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Unidad
+
+	column Ruta
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Ruta
+
+	column Min
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: Min
+
+	column Max
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: Max
+
+	column LL
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: LL
+
+	column L
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: L
+
+	column H
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: H
+
+	column HH
+		dataType: double
+		formatString: #,0.##
+		summarizeBy: none
+		sourceColumn: HH
+
+	partition Tags = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(
+				        Web.Contents(UrlServidor, [RelativePath = "api/powerbi/tags.csv"]),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    VaciosANulos = Table.TransformColumns(Encabezados, {}, each if _ = "" then null else _),
+				    Tipos = Table.TransformColumnTypes(
+				        VaciosANulos,
+				        {
+				            {"TagId", type text}, {"Nombre", type text}, {"Area", type text}, {"OrdenArea", Int64.Type},
+				            {"Tipo", type text}, {"Kpi", type text}, {"Unidad", type text}, {"Ruta", type text},
+				            {"Min", type number}, {"Max", type number},
+				            {"LL", type number}, {"L", type number}, {"H", type number}, {"HH", type number}
+				        },
+				        "en-US"
+				    )
+				in
+				    Tipos
