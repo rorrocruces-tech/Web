@@ -1,0 +1,234 @@
+{
+  "title": "Sistema de Agua Potable",
+  "subtitle": "Monitoreo en línea · PI System",
+  "staleSeconds": 300,
+  "groups": [
+    {
+      "id": "captacion",
+      "name": "Captación",
+      "tags": [
+        {
+          "id": "pozo1_caudal",
+          "name": "Caudal Pozo 1",
+          "path": "\\\\PISRV01\\AP_CAP_P1_FIT101",
+          "type": "analog",
+          "unit": "l/s",
+          "decimals": 1,
+          "min": 0,
+          "max": 60,
+          "limits": { "l": 10, "h": 50 },
+          "sim": { "base": 35, "amp": 12, "noise": 2, "periodMin": 45 }
+        },
+        {
+          "id": "pozo1_nivel",
+          "name": "Nivel dinámico Pozo 1",
+          "path": "\\\\PISRV01\\AP_CAP_P1_LIT101",
+          "type": "analog",
+          "unit": "m",
+          "decimals": 2,
+          "min": 0,
+          "max": 80,
+          "limits": { "h": 65, "hh": 72 },
+          "sim": { "base": 48, "amp": 6, "noise": 0.5, "periodMin": 45 }
+        },
+        {
+          "id": "pozo1_bomba",
+          "name": "Bomba Pozo 1",
+          "path": "\\\\PISRV01\\AP_CAP_P1_BOMBA_EST",
+          "type": "digital",
+          "onStates": ["ON", "Marcha", "Run", "1"],
+          "alarmStates": ["Falla", "Fault", "Trip"],
+          "sim": { "kind": "digital", "on": "Marcha", "off": "Detenida", "periodMin": 20, "dutyOn": 0.8 }
+        },
+        {
+          "id": "pozo2_caudal",
+          "name": "Caudal Pozo 2",
+          "path": "\\\\PISRV01\\AP_CAP_P2_FIT201",
+          "type": "analog",
+          "unit": "l/s",
+          "decimals": 1,
+          "min": 0,
+          "max": 60,
+          "limits": { "l": 10, "h": 50 },
+          "sim": { "base": 28, "amp": 15, "noise": 2, "periodMin": 60 }
+        },
+        {
+          "id": "pozo2_bomba",
+          "name": "Bomba Pozo 2",
+          "path": "\\\\PISRV01\\AP_CAP_P2_BOMBA_EST",
+          "type": "digital",
+          "onStates": ["ON", "Marcha", "Run", "1"],
+          "alarmStates": ["Falla", "Fault", "Trip"],
+          "sim": { "kind": "digital", "on": "Marcha", "off": "Detenida", "periodMin": 25, "dutyOn": 0.6 }
+        }
+      ]
+    },
+    {
+      "id": "planta",
+      "name": "Planta de tratamiento",
+      "tags": [
+        {
+          "id": "planta_caudal_in",
+          "name": "Caudal entrada planta",
+          "path": "\\\\PISRV01\\AP_PTA_FIT301",
+          "type": "analog",
+          "unit": "l/s",
+          "decimals": 1,
+          "min": 0,
+          "max": 120,
+          "limits": { "l": 20, "h": 105 },
+          "sim": { "base": 63, "amp": 22, "noise": 3, "periodMin": 50 }
+        },
+        {
+          "id": "planta_turb_cruda",
+          "name": "Turbiedad agua cruda",
+          "path": "\\\\PISRV01\\AP_PTA_AIT301_TURB",
+          "type": "analog",
+          "unit": "NTU",
+          "decimals": 2,
+          "min": 0,
+          "max": 20,
+          "limits": { "h": 10, "hh": 15 },
+          "sim": { "base": 4.5, "amp": 3, "noise": 0.6, "periodMin": 70 }
+        },
+        {
+          "id": "planta_turb_tratada",
+          "name": "Turbiedad agua tratada",
+          "path": "\\\\PISRV01\\AP_PTA_AIT302_TURB",
+          "type": "analog",
+          "unit": "NTU",
+          "decimals": 2,
+          "min": 0,
+          "max": 4,
+          "limits": { "h": 1, "hh": 2 },
+          "note": "NCh409/1: máximo 2 NTU",
+          "sim": { "base": 0.45, "amp": 0.3, "noise": 0.08, "periodMin": 70 }
+        },
+        {
+          "id": "planta_cloro",
+          "name": "Cloro libre residual",
+          "path": "\\\\PISRV01\\AP_PTA_AIT303_CL2",
+          "type": "analog",
+          "unit": "mg/l",
+          "decimals": 2,
+          "min": 0,
+          "max": 3,
+          "limits": { "ll": 0.2, "l": 0.4, "h": 1.8, "hh": 2.0 },
+          "note": "NCh409/1: 0,2 – 2,0 mg/l",
+          "sim": { "base": 0.75, "amp": 0.45, "noise": 0.05, "periodMin": 40 }
+        },
+        {
+          "id": "planta_ph",
+          "name": "pH agua tratada",
+          "path": "\\\\PISRV01\\AP_PTA_AIT304_PH",
+          "type": "analog",
+          "unit": "pH",
+          "decimals": 2,
+          "min": 5,
+          "max": 10,
+          "limits": { "ll": 6.5, "l": 6.8, "h": 8.2, "hh": 8.5 },
+          "sim": { "base": 7.4, "amp": 0.35, "noise": 0.05, "periodMin": 90 }
+        }
+      ]
+    },
+    {
+      "id": "estanques",
+      "name": "Estanques de regulación",
+      "tags": [
+        {
+          "id": "est1_nivel",
+          "name": "Nivel Estanque 1 (2.000 m³)",
+          "path": "\\\\PISRV01\\AP_EST1_LIT401",
+          "type": "level",
+          "unit": "m",
+          "decimals": 2,
+          "min": 0,
+          "max": 6,
+          "limits": { "ll": 0.8, "l": 1.5, "h": 5.4, "hh": 5.8 },
+          "sim": { "base": 3.8, "amp": 1.6, "noise": 0.05, "periodMin": 55 }
+        },
+        {
+          "id": "est2_nivel",
+          "name": "Nivel Estanque 2 (1.000 m³)",
+          "path": "\\\\PISRV01\\AP_EST2_LIT501",
+          "type": "level",
+          "unit": "m",
+          "decimals": 2,
+          "min": 0,
+          "max": 5,
+          "limits": { "ll": 0.6, "l": 1.2, "h": 4.5, "hh": 4.8 },
+          "sim": { "base": 2.6, "amp": 1.9, "noise": 0.05, "periodMin": 65 }
+        }
+      ]
+    },
+    {
+      "id": "red",
+      "name": "Red de distribución",
+      "tags": [
+        {
+          "id": "red_caudal",
+          "name": "Caudal salida a red",
+          "path": "\\\\PISRV01\\AP_RED_FIT601",
+          "type": "analog",
+          "unit": "l/s",
+          "decimals": 1,
+          "min": 0,
+          "max": 150,
+          "limits": { "h": 130 },
+          "sim": { "base": 70, "amp": 30, "noise": 4, "periodMin": 50 }
+        },
+        {
+          "id": "red_presion_alta",
+          "name": "Presión sector alto",
+          "path": "\\\\PISRV01\\AP_RED_PIT601",
+          "type": "analog",
+          "unit": "mca",
+          "decimals": 1,
+          "min": 0,
+          "max": 80,
+          "limits": { "ll": 10, "l": 15, "h": 60, "hh": 70 },
+          "sim": { "base": 28, "amp": 9, "noise": 1, "periodMin": 50 }
+        },
+        {
+          "id": "red_presion_baja",
+          "name": "Presión sector bajo",
+          "path": "\\\\PISRV01\\AP_RED_PIT602",
+          "type": "analog",
+          "unit": "mca",
+          "decimals": 1,
+          "min": 0,
+          "max": 80,
+          "limits": { "ll": 10, "l": 15, "h": 60, "hh": 70 },
+          "sim": { "base": 45, "amp": 8, "noise": 1, "periodMin": 50 }
+        },
+        {
+          "id": "red_totalizador",
+          "name": "Volumen entregado (totalizador)",
+          "path": "\\\\PISRV01\\AP_RED_FQI601",
+          "type": "analog",
+          "unit": "m³",
+          "decimals": 0,
+          "sim": { "kind": "counter", "start": 1250000, "ratePerHour": 252 }
+        }
+      ]
+    },
+    {
+      "id": "energia",
+      "name": "Energía",
+      "tags": [
+        {
+          "id": "energia_potencia",
+          "name": "Potencia total",
+          "path": "\\\\PISRV01\\AP_ENE_JIT701",
+          "type": "analog",
+          "unit": "kW",
+          "decimals": 0,
+          "min": 0,
+          "max": 400,
+          "limits": { "h": 350 },
+          "sim": { "base": 210, "amp": 70, "noise": 8, "periodMin": 45 }
+        }
+      ]
+    }
+  ]
+}

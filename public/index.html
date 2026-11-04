@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agua Potable · Tiempo real</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.4-6.5 8-6.5 11.5a6.5 6.5 0 0 0 13 0c0-3.5-2.9-7.1-6.5-11.5z" /></svg>
+      <div>
+        <h1 id="title">Sistema de Agua Potable</h1>
+        <p id="subtitle" class="muted"></p>
+      </div>
+    </div>
+    <div class="status" aria-live="polite">
+      <span id="source" class="pill" hidden></span>
+      <span id="conn" class="pill pill-warn"><i></i>Conectando…</span>
+      <span id="updated" class="muted">—</span>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <section id="alarms" class="alarms" hidden aria-label="Alarmas activas">
+    <h2>Alarmas activas <span id="alarm-count" class="count"></span></h2>
+    <ul id="alarm-list"></ul>
+  </section>
+
+  <nav id="filters" class="filters" aria-label="Áreas"></nav>
+
+  <main id="groups"></main>
+
+  <footer class="footer muted">
+    <span>Datos: PI System (PI Web API) · Valores de solo lectura</span>
+    <span id="clock"></span>
+  </footer>
+
+  <dialog id="detail">
+    <form method="dialog" class="detail-head">
+      <div>
+        <h2 id="d-name"></h2>
+        <p id="d-path" class="muted mono"></p>
+      </div>
+      <button class="icon-btn" aria-label="Cerrar">✕</button>
+    </form>
+    <div class="detail-bar">
+      <div id="d-ranges" class="segmented" role="group" aria-label="Rango"></div>
+      <button id="d-csv" class="btn" type="button">Descargar CSV</button>
+    </div>
+    <div id="d-stats" class="stats"></div>
+    <div class="chart-wrap">
+      <svg id="d-chart" class="chart" role="img" aria-label="Tendencia histórica"></svg>
+      <div id="d-tip" class="tip" hidden></div>
+    </div>
+    <p id="d-note" class="muted"></p>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

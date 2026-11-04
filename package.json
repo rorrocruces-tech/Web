@@ -1,0 +1,13 @@
+{
+  "name": "tablero-agua-potable",
+  "version": "1.0.0",
+  "description": "Tablero web en tiempo real del sistema de agua potable con datos desde PI System (PI Web API)",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "sim": "SIMULATE=true node server/server.js"
+  }
+}
