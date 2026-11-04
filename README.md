@@ -1,25 +1,31 @@
 # Tablero en línea · Sistema de Agua Potable (PI System)
 
 Página web que muestra en tiempo real los valores del sistema de agua potable
-(captación, planta, estanques, red y energía) leyendo los tags desde **PI System**
-a través de **PI Web API**.
+(captación, planta, estanques, red y energía) leyendo los tags desde **PI System**.
+
+Puede leer los datos de dos formas:
+
+| Fuente (`PI_SOURCE`) | Cuándo usarla | Requisitos |
+|---|---|---|
+| **`pisdk`** | Sólo tiene **PI ProcessBook** (p. ej. 3.2) y no tiene PI Web API | PC Windows con ProcessBook funcionando + Node.js |
+| `webapi` | Su servidor PI tiene **PI Web API** instalado | Cualquier servidor con acceso HTTPS a PI Web API |
+| `sim` | Desarrollo / demostración sin PI | Nada |
 
 ## Arquitectura
 
 ```
- Navegadores ──SSE (push)──►  Servidor Node.js  ──HTTPS (polling 5 s)──►  PI Web API ──► PI Data Archive / AF
-   (N usuarios)               - 1 sola consulta para todos                 (streamsets/value,
-                              - alarmas LL/L/H/HH                           streams/{id}/interpolated)
-                              - credenciales sólo en el servidor
+                                              ┌─ pisdk ─► PowerShell + PI SDK (COM, el de ProcessBook) ─┐
+ Navegadores ◄─SSE─ Servidor Node.js (polling)┤                                                         ├─► PI Data Archive
+  (N usuarios)      1 consulta para todos     └─ webapi ─► HTTPS ─► PI Web API ─────────────────────────┘
+                    alarmas LL/L/H/HH
 ```
 
 - **Backend** (`server/`): Node.js sin dependencias externas.
-  - Resuelve el `WebId` de cada tag una vez (`points?path=` o `attributes?path=` para atributos AF).
-  - Lee **todos los valores actuales en una sola llamada** (`streamsets/value`, en lotes de 40).
-  - Evalúa calidad (`Good`), datos antiguos (*stale*) y límites de alarma.
-  - Envía los valores a todos los navegadores por **Server-Sent Events**: PI recibe la misma carga con 1 o con 100 usuarios.
-  - Entrega tendencias (`streams/{webId}/interpolated`) con caché de 30 s.
-  - Si no se configura `PI_WEBAPI_URL`, arranca en **modo simulación** para desarrollar sin PI.
+  - Una sola consulta a PI cada `POLL_MS` (5 s) para todos los usuarios; se reparte a los navegadores por **Server-Sent Events**.
+  - Evalúa calidad del dato, datos antiguos (*stale*) y límites de alarma.
+  - Entrega tendencias interpoladas con caché de 30 s.
+  - `pisdk-client.js` + `pisdk-bridge.ps1`: lee snapshot e históricos con el **PI SDK** que instala ProcessBook, usando la misma conexión (trust / usuario por defecto) que ya usa ProcessBook. Si el puente se cae, se reinicia solo.
+  - `pi-client.js`: lee de PI Web API (`streamsets/value` en lotes, `streams/{webId}/interpolated`).
 - **Frontend** (`public/`): HTML + CSS + JS puro, sin CDN (funciona en redes OT sin internet).
   - Tarjetas por área con valor, barra con límites, *sparkline* de los últimos 30 min.
   - Estanques con visual de nivel y % de capacidad; bombas con estado Marcha/Detenida/Falla.
@@ -28,25 +34,58 @@ a través de **PI Web API**.
   - Indicadores de conexión, datos antiguos, calidad mala ("I/O Timeout", "Comm Fail"…).
   - Tema claro/oscuro automático y diseño responsivo (celular / tablet / pantalla de sala de control).
 
-## Puesta en marcha
+## Puesta en marcha con PI ProcessBook (sin PI Web API)
 
-Requisitos: Node.js 18 o superior, y acceso de red desde el servidor hacia PI Web API.
+PI ProcessBook es sólo el cliente: los datos están en un **servidor PI (PI Data Archive)** al que
+ProcessBook se conecta usando el **PI SDK**, que se instaló junto con ProcessBook. El tablero usa ese mismo PI SDK.
+
+1. **Elija el PC**: el mismo donde ProcessBook muestra datos (o cualquier Windows con PI SDK y acceso al servidor PI).
+   Idealmente un PC/servidor que quede siempre encendido.
+2. **Instale Node.js 18 o superior** (LTS, instalador `.msi` de https://nodejs.org). No requiere permisos especiales de PI.
+3. **Copie esta carpeta** al PC, por ejemplo `C:\TableroAgua`.
+4. **Averigüe el nombre del servidor PI y de sus tags**: en ProcessBook, *File → Connections* / *Archivo → Conexiones* (*PI Connection Manager*)
+   muestra el nombre del servidor; los nombres de tag aparecen al hacer doble clic en un valor o tendencia de sus pantallas
+   (o con *Tag Search*).
+5. **Pruebe la lectura** antes de configurar todo:
+   ```bat
+   probar-pisdk.bat "\\NOMBRE_SERVIDOR\NOMBRE_TAG" "\\NOMBRE_SERVIDOR\OTRO_TAG"
+   ```
+   Debe mostrar `OK  ... = valor`. Si dice que no puede cargar PI SDK, vea *Problemas frecuentes*.
+6. **Configure los tags** en `config/tags.json` (ver abajo) con el formato `\\NOMBRE_SERVIDOR\NOMBRE_TAG`.
+7. **Inicie**: doble clic en `iniciar.bat` (crea `.env` con `PI_SOURCE=pisdk` y abre http://localhost:3000).
+8. Desde otros equipos de la red: `http://NOMBRE_DEL_PC:3000` (abra el puerto 3000 en el firewall de Windows).
+
+Para que arranque solo al encender el PC: *Programador de tareas* → tarea "Al iniciar el sistema" que ejecute
+`node C:\TableroAgua\server\server.js` con "Iniciar en" = `C:\TableroAgua`, o instálelo como servicio con
+[NSSM](https://nssm.cc). Si lo ejecuta como servicio, la cuenta del servicio debe tener acceso a PI
+(un *trust* en PI SMT o `PISDK_CONNECT=UID=...;PWD=...` en `.env`).
+
+### Problemas frecuentes (PI SDK)
+
+| Mensaje | Causa / solución |
+|---|---|
+| `No se pudo cargar PI SDK (PowerShell de 64 bits)` | ProcessBook 3.x es de 32 bits. Use la PowerShell de 32 bits (es la opción por defecto); no defina `PISDK_POWERSHELL`. |
+| `No se pudo cargar PI SDK (PowerShell de 32 bits)` | PI SDK no está instalado en ese PC: use el PC donde funciona ProcessBook. |
+| Error de acceso / login / *No Read Access* | El usuario de Windows no tiene *trust* en el servidor PI. Pida al administrador PI un trust o un usuario de solo lectura (`PISDK_CONNECT`). |
+| `[-11049] Point not found` | El nombre del tag no existe en ese servidor. Revise `path` en `tags.json`. |
+| `Timeout esperando a PI SDK` | Servidor PI inalcanzable (puerto TCP 5450) o demasiados tags. Aumente `PI_TIMEOUT_MS`. |
+| `execution of scripts is disabled` | El `.bat` ya usa `-ExecutionPolicy Bypass`; si la política está bloqueada por GPO, pida a TI una excepción para `pisdk-bridge.ps1`. |
+
+## Puesta en marcha con PI Web API
 
 ```bash
-# 1) Probar en modo simulación
-npm start                     # http://localhost:3000
-
-# 2) Conectar a PI
-cp .env.example .env          # completar PI_WEBAPI_URL, PI_USER, PI_PASSWORD
+cp .env.example .env          # PI_SOURCE=webapi y completar PI_WEBAPI_URL, PI_USER, PI_PASSWORD
 npm start
 ```
 
-Con Docker:
+Con Docker (sólo PI Web API o simulación; PI SDK requiere Windows):
 
 ```bash
 docker build -t tablero-agua .
 docker run -d -p 3000:3000 --env-file .env --name tablero-agua tablero-agua
 ```
+
+Modo simulación, sin PI: `npm run sim`.
 
 Endpoints útiles: `/api/health` (para monitoreo), `/api/snapshot`, `/api/history?id=<tag>&range=8h`.
 
@@ -84,6 +123,14 @@ El bloque `sim` sólo se usa en modo simulación y puede omitirse.
 ## Mejoras recomendadas
 
 Ordenadas por impacto para un sistema de agua potable.
+
+### Plataforma PI (su caso: ProcessBook 3.2 de 2009)
+0. **PI ProcessBook está descontinuado por AVEVA** y la versión 3.2 es de 2009; su PI SDK de 32 bits funciona, pero no recibirá más soporte.
+   Consulte con su proveedor/AVEVA:
+   - **PI Web API** normalmente está incluido en la licencia de PI Server para clientes con soporte vigente. Instalarlo permite
+     usar `PI_SOURCE=webapi`, que es más robusto (no depende de un PC Windows con ProcessBook).
+   - **PI Vision** es el reemplazo oficial de ProcessBook (pantallas web) e incluso puede importar pantallas `.PDI`.
+   - Verifique la versión de su servidor PI (PI SMT o *About PI-SDK*): versiones muy antiguas pueden requerir actualización antes de PI Web API.
 
 ### Operación y alarmas
 1. **Usar límites de PI/AF en vez de `tags.json`**: leer los atributos de límite de AF (`Hi`, `HiHi`, `Lo`, `LoLo`)
@@ -123,6 +170,10 @@ Ordenadas por impacto para un sistema de agua potable.
 config/tags.json        Definición de áreas y tags
 server/server.js        Servidor HTTP, polling, SSE y API
 server/pi-client.js     Cliente PI Web API
+server/pisdk-client.js  Cliente PI SDK (lanza el puente PowerShell)
+server/pisdk-bridge.ps1 Puente PowerShell ↔ PI SDK (COM) de ProcessBook
+iniciar.bat             Inicio rápido en Windows
+probar-pisdk.bat        Prueba de lectura de tags con PI SDK
 server/simulator.js     Datos simulados para desarrollo
 server/alarms.js        Evaluación de límites, calidad y datos antiguos
 public/                 Interfaz web (index.html, app.js, styles.css)

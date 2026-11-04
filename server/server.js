@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PiClient } from './pi-client.js';
+import { PiSdkClient } from './pisdk-client.js';
 import { Simulator } from './simulator.js';
 import { evaluate } from './alarms.js';
 
@@ -26,17 +27,38 @@ const tags = config.groups.flatMap((g) => g.tags.map((t) => ({ ...t, group: g.id
 const tagById = new Map(tags.map((t) => [t.id, t]));
 if (tagById.size !== tags.length) throw new Error(`IDs de tag duplicados en ${CONFIG_FILE}`);
 
-const useSim = process.env.SIMULATE === 'true' || !process.env.PI_WEBAPI_URL;
-const source = useSim
-  ? new Simulator()
-  : new PiClient({
-      baseUrl: process.env.PI_WEBAPI_URL,
-      user: process.env.PI_USER,
-      password: process.env.PI_PASSWORD,
-      caFile: process.env.PI_CA_FILE,
-      rejectUnauthorized: process.env.PI_REJECT_UNAUTHORIZED !== 'false',
-      timeoutMs: Number(process.env.PI_TIMEOUT_MS || 10_000),
-    });
+// Fuente de datos: PI_SOURCE = webapi | pisdk | sim
+//   webapi -> PI Web API (HTTPS)
+//   pisdk  -> PI SDK instalado con PI ProcessBook (sólo Windows, sin PI Web API)
+//   sim    -> valores simulados
+const SOURCE_KIND = (
+  process.env.SIMULATE === 'true' ? 'sim' : process.env.PI_SOURCE || (process.env.PI_WEBAPI_URL ? 'webapi' : 'sim')
+).toLowerCase();
+
+function createSource(kind) {
+  switch (kind) {
+    case 'sim':
+      return new Simulator();
+    case 'pisdk':
+      return new PiSdkClient({
+        powershell: process.env.PISDK_POWERSHELL,
+        timeoutMs: Number(process.env.PI_TIMEOUT_MS || 20_000),
+      });
+    case 'webapi':
+      return new PiClient({
+        baseUrl: process.env.PI_WEBAPI_URL,
+        user: process.env.PI_USER,
+        password: process.env.PI_PASSWORD,
+        caFile: process.env.PI_CA_FILE,
+        rejectUnauthorized: process.env.PI_REJECT_UNAUTHORIZED !== 'false',
+        timeoutMs: Number(process.env.PI_TIMEOUT_MS || 10_000),
+      });
+    default:
+      throw new Error(`PI_SOURCE desconocido: "${kind}" (use webapi, pisdk o sim)`);
+  }
+}
+const source = createSource(SOURCE_KIND);
+const SOURCE_LABEL = { sim: 'SIMULADOR', pisdk: 'PI SDK (ProcessBook)', webapi: process.env.PI_WEBAPI_URL }[SOURCE_KIND];
 
 const RANGES = {
   '1h': { start: '*-1h', interval: '1m', ms: 3_600_000, stepMs: 60_000 },
@@ -188,7 +210,7 @@ const server = http.createServer((req, res) => {
 setInterval(() => clients.forEach((res) => res.write(': ping\n\n')), 15_000).unref();
 
 server.listen(PORT, HOST, () => {
-  console.log(`Tablero en http://${HOST}:${PORT}  ·  fuente: ${useSim ? 'SIMULADOR' : process.env.PI_WEBAPI_URL}  ·  ${tags.length} tags  ·  polling ${POLL_MS} ms`);
+  console.log(`Tablero en http://${HOST}:${PORT}  ·  fuente: ${SOURCE_LABEL}  ·  ${tags.length} tags  ·  polling ${POLL_MS} ms`);
   poll();
 });
 

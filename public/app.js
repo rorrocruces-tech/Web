@@ -66,7 +66,7 @@ function applySnapshot(msg, pushToBuffer) {
   app.lastMsgAt = Date.now();
   app.sourceOk = msg.ok;
   if (!msg.ok) {
-    showBanner(`Sin comunicación con PI Web API: ${msg.error ?? 'error desconocido'}. Se muestran los últimos valores recibidos.`);
+    showBanner(`Sin comunicación con PI: ${msg.error ?? 'error desconocido'}. Se muestran los últimos valores recibidos.`);
     return;
   }
   hideBanner();
