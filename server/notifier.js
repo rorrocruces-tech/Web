@@ -1,4 +1,4 @@
-// Envía SMS (vía httpSMS) cuando un equipo se DETIENE.
+// Envía SMS cuando un equipo se DETIENE (proveedor httpSMS o Twilio; canal SMS o WhatsApp).
 //
 // Un equipo se considera "en marcha" si su valor digital está en `tag.onStates`.
 // Se avisa solo en el FLANCO marcha -> detenido (no en cada ciclo de polling),
