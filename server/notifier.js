@@ -13,18 +13,30 @@
 const prevRunning = new Map(); // id -> true (marcha) | false (detenido) | undefined (aún sin dato)
 const lastSent = new Map(); // id -> timestamp del último SMS
 
-const API = process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages';
-const KEY = process.env.SMS_API_KEY || '';
-const FROM = process.env.SMS_FROM || '';
-const TO = parseList(process.env.SMS_TO); // destinatarios de toda detención
-const TO_FALLA = parseList(process.env.SMS_TO_FALLA); // extra, solo para fallas
-const COOLDOWN_MS = Math.max(0, Number(process.env.SMS_COOLDOWN_MIN || 30)) * 60_000;
-const TIMEOUT_MS = Math.max(2000, Number(process.env.SMS_TIMEOUT_MS || 15_000));
-
-const ENABLED = process.env.SMS_ENABLED === 'true' && KEY && FROM && TO.length > 0;
+// La configuración se lee de forma perezosa (lazy) en el primer uso, NO al
+// importar el módulo: así server.js ya cargó el .env antes de leer estas
+// variables. (De lo contrario SMS_* estarían indefinidas y quedaría apagado.)
+let CFG = null;
+function cfg() {
+  if (CFG) return CFG;
+  const KEY = process.env.SMS_API_KEY || '';
+  const FROM = process.env.SMS_FROM || '';
+  const TO = parseList(process.env.SMS_TO);
+  CFG = {
+    API: process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages',
+    KEY,
+    FROM,
+    TO,
+    TO_FALLA: parseList(process.env.SMS_TO_FALLA),
+    COOLDOWN_MS: Math.max(0, Number(process.env.SMS_COOLDOWN_MIN || 30)) * 60_000,
+    TIMEOUT_MS: Math.max(2000, Number(process.env.SMS_TIMEOUT_MS || 15_000)),
+    ENABLED: process.env.SMS_ENABLED === 'true' && Boolean(KEY) && Boolean(FROM) && TO.length > 0,
+  };
+  return CFG;
+}
 
 export function smsEnabled() {
-  return ENABLED;
+  return cfg().ENABLED;
 }
 
 function parseList(raw) {
@@ -41,6 +53,7 @@ function isRunning(tag, raw) {
 }
 
 async function sendSms(to, content) {
+  const { API, KEY, FROM, TIMEOUT_MS } = cfg();
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
@@ -59,6 +72,7 @@ async function sendSms(to, content) {
 // Llamar una vez por ciclo de polling, con los valores ya evaluados.
 // `values` es el objeto { id: { v, good, alarm, ... } } que arma server.js.
 export async function notify(tags, values) {
+  const { ENABLED, TO, TO_FALLA, COOLDOWN_MS } = cfg();
   if (!ENABLED) return;
   const now = Date.now();
 
