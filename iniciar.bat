@@ -23,7 +23,14 @@ if not defined NODE (
 )
 
 if not exist .env copy .env.example .env >nul
+
+REM Si la red de la empresa intercepta HTTPS, coloque el certificado raiz
+REM corporativo como "empresa-ca.pem" en esta carpeta; Node confiara en el
+REM (necesario para que los avisos SMS salgan por Twilio/httpSMS).
+if exist "%~dp0empresa-ca.pem" set "NODE_EXTRA_CA_CERTS=%~dp0empresa-ca.pem"
+
 echo Usando Node.js: %NODE%
+if defined NODE_EXTRA_CA_CERTS echo Certificado de empresa: empresa-ca.pem
 echo Abriendo tablero en http://localhost:3000  (cierre esta ventana para detenerlo)
 start "" http://localhost:3000
 "%NODE%" server\server.js

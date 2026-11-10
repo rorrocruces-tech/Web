@@ -19,7 +19,12 @@ if not defined NODE (
   exit /b 1
 )
 
+REM Si la red de la empresa intercepta HTTPS, coloque el certificado raiz
+REM corporativo como "empresa-ca.pem" en esta carpeta; Node confiara en el.
+if exist "%~dp0empresa-ca.pem" set "NODE_EXTRA_CA_CERTS=%~dp0empresa-ca.pem"
+
 echo Enviando SMS de prueba...
+if defined NODE_EXTRA_CA_CERTS echo (usando certificado de empresa: empresa-ca.pem)
 "%NODE%" server\probar-sms.js %1
 echo.
 pause
