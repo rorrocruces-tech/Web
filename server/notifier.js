@@ -23,7 +23,7 @@ function cfg() {
   const FROM = process.env.SMS_FROM || '';
   const TO = parseList(process.env.SMS_TO);
   CFG = {
-    API: process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages',
+    API: process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages/send',
     KEY,
     FROM,
     TO,
