@@ -122,10 +122,19 @@ El bloque `sim` sólo se usa en modo simulación y puede omitirse.
 ## Avisos por SMS cuando un equipo se detiene (`server/notifier.js`)
 
 Envía un SMS en cuanto un equipo digital pasa de **marcha → detenido** (p. ej. molinos
-o tostación), usando un Android con la app [httpSMS](https://httpsms.com) como central.
-Sólo avisa en la **transición** (no en cada ciclo), con un *cooldown* por equipo.
-Si el estado de detención coincide con `alarmStates` (Falla/Trip), el mensaje se marca
-como **FALLA**. Está **apagado** salvo que defina `SMS_ENABLED=true`.
+o tostación). Sólo avisa en la **transición** (no en cada ciclo), con un *cooldown* por
+equipo. Si el estado de detención coincide con `alarmStates` (Falla/Trip), el mensaje se
+marca como **FALLA**. Está **apagado** salvo que defina `SMS_ENABLED=true`.
+
+Dos proveedores (variable `SMS_PROVIDER`):
+- **httpsms** (por defecto): un Android con la app [httpSMS](https://httpsms.com) y su SIM.
+  Gratis el software; el SMS lo cobra su plan. Requiere que la red permita `api.httpsms.com`.
+- **twilio**: nube de Twilio, sin teléfono que mantener. Pago por SMS. Requiere que la red
+  permita `api.twilio.com`. Necesita `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` y un número
+  Twilio en `SMS_FROM`.
+
+Para diagnosticar el envío sin esperar una detención, ejecute `probar-sms.bat`
+(o `node server/probar-sms.js`): envía un SMS de prueba y muestra la respuesta HTTP exacta.
 
 1. Instale la app **httpSMS** en un Android con SIM, cree cuenta y obtenga la API Key en
    [httpsms.com/settings](https://httpsms.com/settings).

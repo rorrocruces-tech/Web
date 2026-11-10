@@ -19,18 +19,30 @@ const lastSent = new Map(); // id -> timestamp del último SMS
 let CFG = null;
 function cfg() {
   if (CFG) return CFG;
-  const KEY = process.env.SMS_API_KEY || '';
+  const PROVIDER = (process.env.SMS_PROVIDER || 'httpsms').toLowerCase();
   const FROM = process.env.SMS_FROM || '';
   const TO = parseList(process.env.SMS_TO);
+  // Credenciales httpSMS
+  const KEY = process.env.SMS_API_KEY || '';
+  // Credenciales Twilio
+  const TW_SID = process.env.TWILIO_ACCOUNT_SID || '';
+  const TW_TOKEN = process.env.TWILIO_AUTH_TOKEN || '';
+
+  const credentialsOk =
+    PROVIDER === 'twilio' ? Boolean(TW_SID) && Boolean(TW_TOKEN) : Boolean(KEY);
+
   CFG = {
+    PROVIDER,
     API: process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages/send',
     KEY,
+    TW_SID,
+    TW_TOKEN,
     FROM,
     TO,
     TO_FALLA: parseList(process.env.SMS_TO_FALLA),
     COOLDOWN_MS: Math.max(0, Number(process.env.SMS_COOLDOWN_MIN || 30)) * 60_000,
     TIMEOUT_MS: Math.max(2000, Number(process.env.SMS_TIMEOUT_MS || 15_000)),
-    ENABLED: process.env.SMS_ENABLED === 'true' && Boolean(KEY) && Boolean(FROM) && TO.length > 0,
+    ENABLED: process.env.SMS_ENABLED === 'true' && credentialsOk && Boolean(FROM) && TO.length > 0,
   };
   return CFG;
 }
@@ -53,17 +65,35 @@ function isRunning(tag, raw) {
 }
 
 async function sendSms(to, content) {
-  const { API, KEY, FROM, TIMEOUT_MS } = cfg();
+  const c = cfg();
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => ctrl.abort(), c.TIMEOUT_MS);
   try {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: { 'x-api-key': KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: FROM, to, content }),
-      signal: ctrl.signal,
-    });
-    if (!res.ok) throw new Error(`httpSMS respondió ${res.status}`);
+    let res;
+    if (c.PROVIDER === 'twilio') {
+      // Twilio: POST form-urlencoded con autenticación Basic (SID:Token).
+      const url = `https://api.twilio.com/2010-04-01/Accounts/${c.TW_SID}/Messages.json`;
+      const auth = Buffer.from(`${c.TW_SID}:${c.TW_TOKEN}`).toString('base64');
+      const form = new URLSearchParams({ To: to, Body: content });
+      // El remitente puede ser un número (+569...) o un Messaging Service (MG...).
+      if (c.FROM.startsWith('MG')) form.set('MessagingServiceSid', c.FROM);
+      else form.set('From', c.FROM);
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: form,
+        signal: ctrl.signal,
+      });
+    } else {
+      // httpSMS: POST JSON con cabecera x-api-key.
+      res = await fetch(c.API, {
+        method: 'POST',
+        headers: { 'x-api-key': c.KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: c.FROM, to, content }),
+        signal: ctrl.signal,
+      });
+    }
+    if (!res.ok) throw new Error(`${c.PROVIDER} respondió ${res.status}`);
   } finally {
     clearTimeout(timer);
   }
