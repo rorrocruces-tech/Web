@@ -104,13 +104,14 @@ function Invoke-Request($req) {
 
     'history' {
       $data = (Get-PiPoint $req.path).Data
-      # InterpolatedValues(inicio, fin, pasoDeTiempo): el 3er parámetro es un
-      # intervalo de tiempo ("1m", "1h"...), NO una cantidad.
+      # RecordedValues(inicio, fin, boundaryType): boundaryType 2 = interpolado en
+      # los bordes. Es la MISMA llamada que usa la macro de turno y que funciona
+      # con este PI SDK (evita las firmas problemáticas de InterpolatedValues).
       try {
-        $vals = $data.InterpolatedValues($req.start, '*', $req.interval)
+        $vals = $data.RecordedValues($req.start, '*', 2)
       } catch {
-        # Algunas versiones exponen InterpolatedValues2 con la misma firma.
-        $vals = $data.InterpolatedValues2($req.start, '*', $req.interval)
+        # Fallback: interpolado por paso de tiempo, si RecordedValues no está.
+        $vals = $data.InterpolatedValues($req.start, '*', $req.interval)
       }
       $out = New-Object System.Collections.ArrayList
       foreach ($pv in $vals) {
