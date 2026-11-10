@@ -18,10 +18,13 @@ for (const line of fs.existsSync(path.join(ROOT, '.env')) ? fs.readFileSync(path
 const PROVIDER = (process.env.SMS_PROVIDER || 'httpsms').toLowerCase();
 const CHANNEL = (process.env.SMS_CHANNEL || 'sms').toLowerCase();
 const FROM = process.env.SMS_FROM || '';
-const TO = process.argv[3] || (process.env.SMS_TO || '').split(',')[0].trim();
+// Si se pasa un número como 2º argumento, va solo a ese; si no, a TODOS los de SMS_TO.
+const DESTINOS = process.argv[3]
+  ? [process.argv[3]]
+  : (process.env.SMS_TO || '').split(',').map((s) => s.trim()).filter(Boolean);
 const NOMBRE = process.argv[2] || 'Molino SAG';
 
-async function enviar(content) {
+async function enviar(content, TO) {
   let url;
   let opts;
   if (PROVIDER === 'twilio') {
@@ -49,19 +52,22 @@ const avisos = [
 ];
 
 console.log('--- Prueba de avisos (detención y vuelta a servicio) ---');
-console.log('PROVEEDOR:', PROVIDER, '| canal:', CHANNEL, '| para:', TO);
-if (!FROM || !TO) {
+console.log('PROVEEDOR:', PROVIDER, '| canal:', CHANNEL);
+console.log('DESTINATARIOS:', DESTINOS.join(', ') || '(ninguno)');
+if (!FROM || DESTINOS.length === 0) {
   console.log('\nFaltan SMS_FROM o SMS_TO en el .env.');
   process.exit(1);
 }
 
 for (const a of avisos) {
-  try {
-    const r = await enviar(a);
-    console.log(`\n[${r.ok ? 'OK' : 'ERROR'} HTTP ${r.status}] ${a}`);
-    if (!r.ok) console.log('   ' + r.txt.slice(0, 300));
-  } catch (e) {
-    console.log(`\n[FALLO] ${a}\n   ${e.message}`);
+  for (const TO of DESTINOS) {
+    try {
+      const r = await enviar(a, TO);
+      console.log(`\n[${r.ok ? 'OK' : 'ERROR'} HTTP ${r.status}] ${TO}  ::  ${a}`);
+      if (!r.ok) console.log('   ' + r.txt.slice(0, 300));
+    } catch (e) {
+      console.log(`\n[FALLO] ${TO}  ::  ${a}\n   ${e.message}`);
+    }
   }
 }
-console.log('\nListo. Deben llegar 2 mensajes al teléfono.');
+console.log(`\nListo. Se enviaron ${avisos.length} avisos a ${DESTINOS.length} número(s).`);
