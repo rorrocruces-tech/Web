@@ -104,11 +104,13 @@ function Invoke-Request($req) {
 
     'history' {
       $data = (Get-PiPoint $req.path).Data
+      # InterpolatedValues(inicio, fin, pasoDeTiempo): el 3er parámetro es un
+      # intervalo de tiempo ("1m", "1h"...), NO una cantidad.
       try {
-        $vals = $data.InterpolatedValues2($req.start, '*', $req.interval)
+        $vals = $data.InterpolatedValues($req.start, '*', $req.interval)
       } catch {
-        # Versiones antiguas de PI SDK: cantidad fija de valores
-        $vals = $data.InterpolatedValues($req.start, '*', [int]$req.count)
+        # Algunas versiones exponen InterpolatedValues2 con la misma firma.
+        $vals = $data.InterpolatedValues2($req.start, '*', $req.interval)
       }
       $out = New-Object System.Collections.ArrayList
       foreach ($pv in $vals) {
