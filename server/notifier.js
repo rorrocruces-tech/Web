@@ -60,9 +60,13 @@ function parseList(raw) {
 }
 
 function isRunning(tag, raw) {
-  // Solo sabemos el estado si el dato es válido y es un equipo digital con onStates.
-  if (!raw || raw.good !== true || !Array.isArray(tag.onStates)) return null;
-  return tag.onStates.includes(String(raw.v));
+  // Devuelve true (en marcha), false (detenido) o null (sin dato / no evaluable).
+  if (!raw || raw.good !== true) return null;
+  // Equipo digital: en marcha si el estado está en onStates (ej: "Marcha", "Run").
+  if (Array.isArray(tag.onStates)) return tag.onStates.includes(String(raw.v));
+  // Equipo analógico: en marcha si el valor supera un umbral (ej: potencia > 3500 kW).
+  if (typeof tag.runningAbove === 'number' && typeof raw.v === 'number') return raw.v > tag.runningAbove;
+  return null;
 }
 
 async function sendSms(to, content) {
@@ -116,23 +120,38 @@ export async function notify(tags, values) {
     const was = prevRunning.get(tag.id);
     prevRunning.set(tag.id, running);
 
-    // Flanco de DETENCIÓN: venía en marcha y ahora está detenido.
-    if (was !== true || running !== false) continue;
+    // Solo avisa en un CAMBIO de estado (no en el primer dato ni si sigue igual).
+    if (was === undefined || was === running) continue;
 
-    if (now - (lastSent.get(tag.id) || 0) < COOLDOWN_MS) continue;
-    lastSent.set(tag.id, now);
+    // Dirección del cambio: 'stop' (se detuvo) o 'start' (volvió a servicio).
+    const dir = running ? 'start' : 'stop';
+    // Se puede desactivar el aviso de "en servicio" por equipo (notifyOnStart:false).
+    if (dir === 'start' && tag.notifyOnStart === false) continue;
 
-    const estado = String(values[tag.id].v);
-    const esFalla = Array.isArray(tag.alarmStates) && tag.alarmStates.includes(estado);
+    // Cooldown por equipo Y por dirección: no reenvía el mismo tipo de aviso
+    // seguido, pero un "detenido" no bloquea el posterior "en servicio".
+    const key = `${tag.id}|${dir}`;
+    if (now - (lastSent.get(key) || 0) < COOLDOWN_MS) continue;
+    lastSent.set(key, now);
+
     const hora = new Date(now).toLocaleString('es-CL', { hour12: false });
-    const content = esFalla
-      ? `🔴 FALLA: ${tag.name} se detuvo (${estado}) — ${hora}`
-      : `⚠️ DETENCION: ${tag.name} pasó a ${estado} — ${hora}`;
-
-    // Destinatarios: lista propia del equipo si existe, si no la global;
-    // y, para fallas, se suma la lista extra SMS_TO_FALLA.
     const base = Array.isArray(tag.notify) && tag.notify.length ? tag.notify : TO;
-    const destinatarios = esFalla ? [...new Set([...base, ...TO_FALLA])] : base;
+    let content;
+    let destinatarios;
+
+    if (!running) {
+      // DETENCIÓN. Si el estado coincide con alarmStates (digital), es FALLA.
+      const estado = String(values[tag.id].v);
+      const esFalla = Array.isArray(tag.alarmStates) && tag.alarmStates.includes(estado);
+      content = esFalla
+        ? `🔴 FALLA: ${tag.name} se detuvo (${estado}) — ${hora}`
+        : `⚠️ DETENIDO: ${tag.name} — ${hora}`;
+      destinatarios = esFalla ? [...new Set([...base, ...TO_FALLA])] : base;
+    } else {
+      // VUELTA A SERVICIO.
+      content = `✅ EN SERVICIO: ${tag.name} volvió a operar — ${hora}`;
+      destinatarios = base;
+    }
 
     for (const to of destinatarios) {
       sendSms(to, content).catch((e) => console.error(`[sms] ${tag.id} -> ${to}: ${e.message}`));

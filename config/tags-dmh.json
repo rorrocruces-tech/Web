@@ -1,0 +1,67 @@
+{
+  "title": "Molienda y Tostación · DMH",
+  "subtitle": "Estado de equipos en línea · PI System (mhpip)",
+  "staleSeconds": 600,
+  "groups": [
+    {
+      "id": "concentradora",
+      "name": "Planta Concentradora",
+      "tags": [
+        {
+          "id": "sag",
+          "name": "Molino SAG",
+          "path": "\\\\mhpip\\3213:MSG_001JI.DACA.PV",
+          "type": "analog",
+          "unit": "",
+          "decimals": 0,
+          "min": 0,
+          "max": 15,
+          "runningAbove": 1,
+          "sim": { "kind": "digital", "on": 8, "off": 0, "periodMin": 12, "dutyOn": 0.85 }
+        },
+        {
+          "id": "mb1",
+          "name": "Molino Bolas 1",
+          "path": "\\\\mhpip\\3221:MBO_001_PM.DACA.PV",
+          "type": "analog",
+          "unit": "",
+          "decimals": 0,
+          "min": 0,
+          "max": 15,
+          "runningAbove": 1,
+          "sim": { "kind": "digital", "on": 7, "off": 0, "periodMin": 16, "dutyOn": 0.8 }
+        },
+        {
+          "id": "mb2",
+          "name": "Molino Bolas 2",
+          "path": "\\\\mhpip\\3221:MBO_002_PM.DACA.PV",
+          "type": "analog",
+          "unit": "",
+          "decimals": 0,
+          "min": 0,
+          "max": 15,
+          "runningAbove": 1,
+          "sim": { "kind": "digital", "on": 7, "off": 0, "periodMin": 20, "dutyOn": 0.75 }
+        }
+      ]
+    },
+    {
+      "id": "tostacion",
+      "name": "Planta Tostación",
+      "tags": [
+        {
+          "id": "tostador",
+          "name": "Tostador",
+          "path": "\\\\mhpip\\3000:52E04_P_ACTIVA",
+          "type": "analog",
+          "unit": "kW",
+          "decimals": 0,
+          "min": 0,
+          "max": 6000,
+          "runningAbove": 3499.999,
+          "sim": { "kind": "digital", "on": 4200, "off": 0, "periodMin": 25, "dutyOn": 0.8 }
+        }
+      ]
+    }
+  ]
+}

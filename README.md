@@ -136,6 +136,20 @@ Dos proveedores (variable `SMS_PROVIDER`):
 Para diagnosticar el envío sin esperar una detención, ejecute `probar-sms.bat`
 (o `node server/probar-sms.js`): envía un SMS de prueba y muestra la respuesta HTTP exacta.
 
+### Detección de marcha / detención por equipo
+
+El aviso se dispara en el **cambio de estado** de cada equipo:
+- **Digital**: en marcha si el valor está en `onStates` (ej. `"Marcha"`).
+- **Analógico**: en marcha si el valor supera `runningAbove` (ej. Tostador en servicio
+  cuando la potencia > 3500 kW: `"runningAbove": 3499.999`).
+
+Avisa al **detenerse** (`⚠️ DETENIDO`) y al **volver a servicio** (`✅ EN SERVICIO`). Para
+que un equipo no avise al reanudar, agregue `"notifyOnStart": false` a su tag.
+
+Config lista para los equipos de DMH (Molino SAG, Molino Bolas 1 y 2, Tostador),
+con el servidor `mhpip` y los tags reales: **`config/tags-dmh.json`**. Actívela con
+`TAGS_FILE=config/tags-dmh.json` en el `.env`.
+
 1. Instale la app **httpSMS** en un Android con SIM, cree cuenta y obtenga la API Key en
    [httpsms.com/settings](https://httpsms.com/settings).
 2. Complete en `.env` (ver `.env.example`):
