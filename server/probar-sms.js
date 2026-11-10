@@ -41,10 +41,11 @@ if (PROVIDER === 'twilio') {
   if (!SID) faltan.push('TWILIO_ACCOUNT_SID');
   if (!TOKEN) faltan.push('TWILIO_AUTH_TOKEN');
   if (!faltan.length) {
+    const pref = (process.env.SMS_CHANNEL || 'sms').toLowerCase() === 'whatsapp' ? 'whatsapp:' : '';
     url = `https://api.twilio.com/2010-04-01/Accounts/${SID}/Messages.json`;
-    const form = new URLSearchParams({ To: TO, Body: content });
+    const form = new URLSearchParams({ To: `${pref}${TO}`, Body: content });
     if (FROM.startsWith('MG')) form.set('MessagingServiceSid', FROM);
-    else form.set('From', FROM);
+    else form.set('From', `${pref}${FROM}`);
     const auth = Buffer.from(`${SID}:${TOKEN}`).toString('base64');
     fetchOpts = { method: 'POST', headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: form };
   }

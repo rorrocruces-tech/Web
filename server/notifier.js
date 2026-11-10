@@ -33,6 +33,7 @@ function cfg() {
 
   CFG = {
     PROVIDER,
+    CHANNEL: (process.env.SMS_CHANNEL || 'sms').toLowerCase(), // sms | whatsapp (solo Twilio)
     API: process.env.SMS_API_URL || 'https://api.httpsms.com/v1/messages/send',
     KEY,
     TW_SID,
@@ -74,10 +75,12 @@ async function sendSms(to, content) {
       // Twilio: POST form-urlencoded con autenticación Basic (SID:Token).
       const url = `https://api.twilio.com/2010-04-01/Accounts/${c.TW_SID}/Messages.json`;
       const auth = Buffer.from(`${c.TW_SID}:${c.TW_TOKEN}`).toString('base64');
-      const form = new URLSearchParams({ To: to, Body: content });
+      // Para WhatsApp, Twilio exige el prefijo "whatsapp:" en From y To.
+      const pref = c.CHANNEL === 'whatsapp' ? 'whatsapp:' : '';
+      const form = new URLSearchParams({ To: `${pref}${to}`, Body: content });
       // El remitente puede ser un número (+569...) o un Messaging Service (MG...).
       if (c.FROM.startsWith('MG')) form.set('MessagingServiceSid', c.FROM);
-      else form.set('From', c.FROM);
+      else form.set('From', `${pref}${c.FROM}`);
       res = await fetch(url, {
         method: 'POST',
         headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' },
