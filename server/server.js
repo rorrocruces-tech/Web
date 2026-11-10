@@ -11,6 +11,7 @@ import { PiClient } from './pi-client.js';
 import { PiSdkClient } from './pisdk-client.js';
 import { Simulator } from './simulator.js';
 import { evaluate } from './alarms.js';
+import { notify, smsEnabled } from './notifier.js';
 import { createPowerBiHandler } from './powerbi.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -92,6 +93,7 @@ async function poll() {
       }
     }
     Object.assign(state, { ok: true, error: null, ts: new Date(now).toISOString(), values });
+    notify(tags, values).catch((err) => console.error(`[sms] ${err.message}`));
   } catch (err) {
     state.ok = false;
     state.error = err.message;
@@ -217,6 +219,7 @@ setInterval(() => clients.forEach((res) => res.write(': ping\n\n')), 15_000).unr
 
 server.listen(PORT, HOST, () => {
   console.log(`Tablero en http://${HOST}:${PORT}  ·  fuente: ${SOURCE_LABEL}  ·  ${tags.length} tags  ·  polling ${POLL_MS} ms`);
+  console.log(`Avisos SMS: ${smsEnabled() ? 'ACTIVOS' : 'apagados (defina SMS_ENABLED=true y datos de httpSMS)'}`);
   poll();
 });
 

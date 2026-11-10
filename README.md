@@ -119,6 +119,36 @@ El bloque `sim` sólo se usa en modo simulación y puede omitirse.
 
 > Recuerde que en JSON cada `\` se escribe `\\`; `\\PISRV01\TAG` queda `"\\\\PISRV01\\TAG"`.
 
+## Avisos por SMS cuando un equipo se detiene (`server/notifier.js`)
+
+Envía un SMS en cuanto un equipo digital pasa de **marcha → detenido** (p. ej. molinos
+o tostación), usando un Android con la app [httpSMS](https://httpsms.com) como central.
+Sólo avisa en la **transición** (no en cada ciclo), con un *cooldown* por equipo.
+Si el estado de detención coincide con `alarmStates` (Falla/Trip), el mensaje se marca
+como **FALLA**. Está **apagado** salvo que defina `SMS_ENABLED=true`.
+
+1. Instale la app **httpSMS** en un Android con SIM, cree cuenta y obtenga la API Key en
+   [httpsms.com/settings](https://httpsms.com/settings).
+2. Complete en `.env` (ver `.env.example`):
+
+   ```bash
+   SMS_ENABLED=true
+   SMS_API_KEY=su_api_key
+   SMS_FROM=+56956871072                 # número del Android central
+   SMS_TO=+56990000001,+56990000002      # a quién avisar (coma = varios)
+   SMS_TO_FALLA=+56990000003             # opcional: extra sólo para fallas
+   SMS_COOLDOWN_MIN=30
+   ```
+
+3. Marque como digitales los equipos a vigilar en `config/tags.json`
+   (`"type":"digital"` con `"onStates"`). Para avisar a personas distintas por equipo,
+   agregue `"notify": ["+569..."]` a ese tag (si no, usa `SMS_TO`).
+4. Reinicie; en consola verá `Avisos SMS: ACTIVOS`. Pruebe con `npm run sim`:
+   al detenerse una bomba debe llegar el SMS.
+
+> La API Key permite enviar SMS a su costa: va en `.env` (no se sube a Git) y no debe
+> compartirse. No lo use para envíos masivos ni publicidad.
+
 ### Requisitos en PI Web API
 
 - Cuenta de servicio de **solo lectura** (identidad PI mapeada con permiso *Read* en los puntos).
@@ -185,5 +215,6 @@ iniciar.bat             Inicio rápido en Windows
 probar-pisdk.bat        Prueba de lectura de tags con PI SDK
 server/simulator.js     Datos simulados para desarrollo
 server/alarms.js        Evaluación de límites, calidad y datos antiguos
+server/notifier.js      Avisos por SMS (httpSMS) ante detención de equipos
 public/                 Interfaz web (index.html, app.js, styles.css)
 ```
